@@ -1,0 +1,61 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_USER: ROLE_USER
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+        AppBundle\Entity\Profile:
+            algorithm: bcrypt
+
+    access_control:
+        - { path: ^/(show_statistics|list_profile|list_cars|list_dealership|list_marks), role: ROLE_USER }
+        - { path: ^/(login|wrong_password|register) , role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/', role: [ROLE_ADMIN] }
+
+        # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        chain_provider:
+            chain:
+                providers: [ in_memory , db_provider ]
+
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: $2y$13$C3D/lnwWeh73axMnldcB.euo.Gkv4IThttEFp2.yaEWiIt585zbOa
+                        roles: 'ROLE_ADMIN'
+        db_provider:
+            entity:
+                class: AppBundle:Profile
+                property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            provider: chain_provider
+            form_login:
+                login_path: login
+                check_path: login
+                always_use_default_target_path: true
+                default_target_path: /show_statistics
+                use_referer: true
+                failure_path: /wrong_password
+            logout: true
+            anonymous: ~
+
+      # activate different ways to authenticate
+      # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+      #http_basic: ~
+      # https://symfony.com/doc/current/security/form_login_setup.html
+      #form_login: ~
+
+

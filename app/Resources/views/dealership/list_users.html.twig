@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="table-responsive ">
+            <table class="table table-hover text-center">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">DateOf Birth</th>
+                    <th scope="col">Driver Category</th>
+                    <th scope="col">Number Of Accidents</th>
+                    <th scope="col">Casco</th>
+                    <th scope="col">Model of car</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th scope="col">Roles</th>
+                        <th scope="col">Reduction</th>
+                        <th scope="col">Promote</th>
+                        <th scope="col">Edit Action</th>
+                        <th scope="col">Remove Action</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for profile in profiles %}
+                    <tr>
+                        <td>{{ profile.id }}</td>
+                        <td>{{ profile.lastName }}</td>
+                        <td>{{ profile.firstName }}</td>
+                        <td>{{ profile.birthday|date("m/d/Y") }}</td>
+                        <td>{{ profile.driverLicenseCategory }}</td>
+                        <td>{{ profile.numberOfAccidents }}</td>
+                        <td>{{ profile.casco }}</td>
+                        <td>
+                            {% for car in profile.cars %}
+                                <p>{{ car.model }}</p>
+                            {% endfor %}
+                        </td>
+                        <td>{{ profile.getRoles|length }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td><a href="{{ path('reduction', {id: profile.id}) }}">
+                                    <i class="fas fa-user-edit">
+                                        <button type="button" style="font-size: 22px; color: orangered" class="btn ">
+                                            <ion-icon name="hand"></ion-icon>
+                                        </button>
+                                    </i>
+                                </a></td>
+                            {% if profile.getRoles|length < 2 %}
+                                <td><a href="{{ path('promote', {id: profile.id}) }}">
+                                        <i class="fas fa-user-edit">
+                                            <button type="button" style="font-size: 22px; color: green" class="btn ">
+                                                <ion-icon name="done-all"></ion-icon>
+                                            </button>
+                                        </i>
+                                    </a></td>
+                            {% endif %}
+                            {% if profile.getRoles|length == 2 %}
+                                <td>
+                                    <i class="fas fa-user-edit">
+                                        <ion-icon name="done-all"></ion-icon>
+                                    </i>
+                                </td>
+                            {% endif %}
+                            <td><a href="{{ path('edit_user', {id: profile.id}) }}">
+                                    <i class="fas fa-user-edit">
+                                        <button type="button" style="font-size: 22px;color: #b533ff" class="btn ">
+                                            <ion-icon name="build"></ion-icon>
+                                        </button>
+                                    </i>
+                                </a></td>
+                            <td><a href="{{ path('remove_profile', {id: profile.id}) }}">
+                                    <i class="fas fa-user-edit">
+                                        <button type="button" style="font-size: 22px; color: red" class="btn ">
+                                            <ion-icon name="close"></ion-icon>
+                                        </button>
+                                    </i>
+                                </a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-print-block">
+            <div class="container align_text">
+                {% if page > 0 %}
+                    <a type="button" class="btn btn-primary btn-lg active"
+                       href={{ path('list_profile', {page: page-1}) }}>
+                        Previous
+                    </a>
+                {% endif %}
+                {% if hasMoreItems %}
+                    <a type="button" class="btn btn-primary btn-lg active"
+                       href={{ path('list_profile', {page: page+1}) }}>
+                        Next
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+
+
+
+
+
+
+

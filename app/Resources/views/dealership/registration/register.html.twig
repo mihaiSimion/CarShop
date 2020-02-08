@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container align_text hr_space">
+        {{ form_start(registration_form)}}
+        {{ form_widget(registration_form)}}
+        {{ form_end(registration_form)}}
+    </div>
+{% endblock %}

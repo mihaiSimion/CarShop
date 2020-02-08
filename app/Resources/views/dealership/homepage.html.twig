@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card container text-center hr_space">
+        <h1><strong>WELCOME</strong> {{ app.user.username }}</h1>
+        <ul class="list-group list-group-flush">
+            {% for role in app.user.getRoles %}
+                <li class="list-group-item">{{ role }}</li>
+            {% endfor %}
+        </ul>
+        <div class="card-header ">
+            <strong style="font-size: 25px">Autovit in 2019</strong>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>{{ users|length }}</strong> new profiles</li>
+            <li class="list-group-item"><strong>{{ cars|length }}</strong> available</li>
+            <li class="list-group-item"><strong>{{ marks|length }}</strong> marks</li>
+            <li class="list-group-item"><strong>{{ dealers|length }}</strong> dealers</li>
+        </ul>
+    </div>
+    <footer class="mastfoot mt-auto trademark">
+        <div class="inner">
+            <p>
+                <i style="font-size: 40px; margin-left: 30px">
+                    <ion-icon name="logo-github"></ion-icon>
+                </i><a href="https://github.com/mihaiSimion"> <strong>Simion Andrei Mihai</strong><br><br></a>
+                <i style="font-size: 40px; margin-left: 30px">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                </i>
+                <i style="font-size: 40px; margin-left: 30px">
+                    <ion-icon name="logo-googleplus"></ion-icon>
+                </i>
+                <i style="font-size: 40px; margin-left: 30px">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                </i>
+                <i style="font-size: 40px; margin-left: 30px">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </i>
+            </p>
+        </div>
+    </footer>
+{% endblock %}
+
+

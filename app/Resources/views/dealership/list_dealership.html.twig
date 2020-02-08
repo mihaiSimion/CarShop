@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-hover text-center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Close Hour</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th scope="col">Edit Action</th>
+                    <th scope="col">Remove Action</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for dealer in dealerships %}
+                <tr>
+                    <td>{{ dealer.id }}</td>
+                    <td>{{ dealer.name }}</td>
+                    <td>{{ dealer.address }}</td>
+                    <td>{{ dealer.closeHour|date("H:i:s") }}</td>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('edit_dealership', {id: dealer.id}) }}">
+                                <i class="fas fa-user-edit">
+                                    <button type="button" style="font-size: 22px" class="btn ">
+                                        <ion-icon name="build"></ion-icon>
+                                    </button>
+                                </i>
+                            </a></td>
+                        <td><a href="{{ path('remove_dealership', {id: dealer.id}) }}">
+                                <i class="fas fa-user-edit">
+                                    <button type="button" style="font-size: 22px" class="btn ">
+                                        <ion-icon name="close"></ion-icon>
+                                    </button>
+                                </i>
+                            </a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+<div class="container align_text">
+    {% if page > 0 %}
+        <a type="button" class="btn btn-primary" href={{ path('list_dealership', {page: page-1}) }}><</a>
+    {% endif %}
+    {% if hasMoreItems %}
+        <a type="button" class="btn btn-primary" href={{ path('list_dealership', {page: page+1}) }}>></a>
+    {% endif %}
+</div>
+{% endblock %}
+
+

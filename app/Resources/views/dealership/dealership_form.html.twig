@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container align_text hr_space">
+        <ul class="list-group list-group-flush">
+            {{ form_start(myDealershipForm)}}
+            {{ form_widget(myDealershipForm)}}
+            {{ form_end(myDealershipForm)}}
+        </ul>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+
+.main-title{
+    text-align: center;
+    margin-top: 150px;
+}
+.cars_per_user{
+    margin-bottom: 100px;
+}
+.hr_space{
+    margin-top: 100px;
+}
+.align_text{
+    text-align: center;
+}
+
+.trademark{
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%,-50%);
+}
+
+.fail{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.table{
+    margin-top: 100px;
+}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card container text-center">
+        <ul class="list-group list-group-flush">
+            {{ form_start(myForm)}}
+            {{ form_widget(myForm)}}
+            {{ form_end(myForm)}}
+        </ul>
+    </div>
+{% endblock %}

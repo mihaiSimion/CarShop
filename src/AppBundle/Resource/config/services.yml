@@ -1,0 +1,31 @@
+services:
+    car_statistics.resource_factory:
+        class: AppBundle\Factory\CarStatisticsResourceFactory
+    profile.factory:
+        class: AppBundle\Factory\ProfileFactory
+    car_statitiscs.calculator:
+        class: AppBundle\Services\CarStatisticsCalculator
+    car_statistics.persistance:
+        class: AppBundle\Services\CarStatisticsPersistance
+        arguments: ["@profile.factory", "@doctrine.orm.entity_manager"]
+    car_form.form:
+        class: AppBundle\Form\CarForm
+    profile_form.form:
+        class: AppBundle\Form\ProfileForm
+    mark_form.form:
+        class: AppBundle\Form\MarkForm
+    dealership_form.form:
+        class: AppBundle\Form\DealershipForm
+    remove_role_user.remove:
+        class: AppBundle\Services\RemoveRoleUser
+        arguments: ["@doctrine.orm.entity_manager"]
+    car_count.resource_factory:
+        class: AppBundle\Factory\CarCountResourceFactory
+    database_conection.users:
+        class: AppBundle\Services\DatabaseConnection
+        arguments: ["@doctrine.orm.entity_manager"]
+    bad_profiles.show:
+        class: AppBundle\Services\BadProfiles
+        arguments:
+            - '@database_conection.users'
+
